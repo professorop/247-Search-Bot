@@ -16,7 +16,7 @@ def start(update, context):
             sendMessage("<b>❖  Am Alive </b>", context.bot, update)
         LOGGER.info('Granted: {} [{}]'.format(update.message.from_user.first_name, update.message.from_user.id))
     else:
-        sendMessage("<b>❖ Access Denied.\n❖  Join Us @mirror_247_chennel </b>", context.bot, update)
+        sendMessage("<b>❖ Access Denied.\n❖ Join Us @mirror_247_chennel </b>", context.bot, update)
         LOGGER.info('Denied: {} [{}]'.format(update.message.from_user.first_name, update.message.from_user.id))
 
 def ping(update, context):

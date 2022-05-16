@@ -229,11 +229,11 @@ class GoogleDriveHelper:
                 dir_id = self.create_directory(meta.get('name'), parent_id)
                 self.cloneFolder(meta.get('name'), meta.get('name'), meta.get('id'), dir_id, status)
                 status.set_status(True)
-                msg += f'<b>Filename: </b><code>{meta.get("name")}</code>'
-                msg += f'\n<b>Size: </b>{get_readable_file_size(self.transferred_size)}'
-                msg += f"\n<b>Type: </b>Folder"
-                msg += f"\n<b>SubFolders: </b>{self.total_folders}"
-                msg += f"\n<b>Files: </b>{self.total_files}"
+                msg += f'<b>❖ Filename: </b><code>{meta.get("name")}</code>'
+                msg += f'\n<b>❖ Size: </b>{get_readable_file_size(self.transferred_size)}'
+                msg += f"\n<b>❖ Type: </b>Folder"
+                msg += f"\n<b>❖ SubFolders: </b>{self.total_folders}"
+                msg += f"\n<b>❖ Files: </b>{self.total_files}"
                 msg += f'\n\n<a href="{self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(dir_id)}">Drive Link</a>'
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{meta.get("name")}/')
@@ -244,10 +244,10 @@ class GoogleDriveHelper:
                     typ = file.get('mimeType')
                 except:
                     typ = 'File' 
-                msg += f'<b>Filename: </b><code>{file.get("name")}</code>'
+                msg += f'<b>❖ Filename: </b><code>{file.get("name")}</code>'
                 try:
-                    msg += f'\n<b>Size: </b>{get_readable_file_size(int(meta.get("size", 0)))}'
-                    msg += f'\n<b>Type: </b>{typ}'
+                    msg += f'\n<b>❖ Size: </b>{get_readable_file_size(int(meta.get("size", 0)))}'
+                    msg += f'\n<b>❖ Type: </b>{typ}'
                     msg += f'\n\n<a href="{self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))}">Drive Link</a>'
                 except TypeError:
                     pass
@@ -260,14 +260,14 @@ class GoogleDriveHelper:
                 err = err.last_attempt.exception()
             err = str(err).replace('>', '').replace('<', '')
             LOGGER.error(err)
-            if "User rate limit exceeded" in str(err):
-                msg = "User rate limit exceeded"
-            elif "File not found" in str(err):
+            if "❖ User rate limit exceeded" in str(err):
+                msg = "❖ User rate limit exceeded"
+            elif "❖ File not found" in str(err):
                 token_service = self.alt_authorize()
                 if token_service is not None:
                     self.__service = token_service
                     return self.clone(link, status)
-                msg = "No such file exists"
+                msg = "❖ No such file exists"
             else:
                 msg = str(err)
             LOGGER.error(f"{msg}")
@@ -320,20 +320,20 @@ class GoogleDriveHelper:
             mime_type = meta.get('mimeType')
             if mime_type == self.__G_DRIVE_DIR_MIME_TYPE:
                 self.gDrive_directory(meta)
-                msg += f'<b>Name: </b><code>{meta.get("name")}</code>'
-                msg += f'\n<b>Size: </b>{get_readable_file_size(self.total_bytes)}'
-                msg += f'\n<b>Type: </b>Folder'
-                msg += f'\n<b>SubFolders: </b>{self.total_folders}'
-                msg += f'\n<b>Files: </b>{self.total_files}'
+                msg += f'<b>❖ Name: </b><code>{meta.get("name")}</code>'
+                msg += f'\n<b>❖ Size: </b>{get_readable_file_size(self.total_bytes)}'
+                msg += f'\n<b>❖ Type: </b>Folder'
+                msg += f'\n<b>❖ SubFolders: </b>{self.total_folders}'
+                msg += f'\n<b>❖ Files: </b>{self.total_files}'
             else:
-                msg += f'<b>Name: </b><code>{meta.get("name")}</code>'
+                msg += f'<b>❖ Name: </b><code>{meta.get("name")}</code>'
                 if mime_type is None:
                     mime_type = 'File'
                 self.total_files += 1
                 self.gDrive_file(meta)
-                msg += f'\n<b>Size: </b>{get_readable_file_size(self.total_bytes)}'
-                msg += f'\n<b>Type: </b>{mime_type}'
-                msg += f'\n<b>Files: </b>{self.total_files}'
+                msg += f'\n<b>❖ Size: </b>{get_readable_file_size(self.total_bytes)}'
+                msg += f'\n<b>❖ Type: </b>{mime_type}'
+                msg += f'\n<b>❖ Files: </b>{self.total_files}'
         except Exception as err:
             if isinstance(err, RetryError):
                 LOGGER.info(f"Total attempts: {err.last_attempt.attempt_number}")
@@ -345,7 +345,7 @@ class GoogleDriveHelper:
                 if token_service is not None:
                     self.__service = token_service
                     return self.count(link)
-                msg = "No such file exists"
+                msg = "❖ No such file exists"
             else:
                 msg = str(err)
             LOGGER.error(f"{msg}")
@@ -498,16 +498,16 @@ class GoogleDriveHelper:
 
             try:
                 self.path.append(
-                    telegraph[acc_no].create_page(title='SearchX',
-                                                  author_name='Levi',
-                                                  author_url='https://t.me/l3v11',
+                    telegraph[acc_no].create_page(title='24/7 Search Bot',
+                                                  author_name='24/7 Mirror',
+                                                  author_url='https://t.me/mirror_247_chennel',
                                                   html_content=self.telegraph_content[i])['path'])
             except RetryAfterError as e:
                 LOGGER.info(f"Cooldown: {e.retry_after} seconds")
                 time.sleep(e.retry_after)
                 self.path.append(
-                    telegraph[acc_no].create_page(title='SearchX',
-                                                  author_name='Levi',
+                    telegraph[acc_no].create_page(title='24/7 Search Bot',
+                                                  author_name='24/7 Mirror',
                                                   author_url='https://t.me/l3v11',
                                                   html_content=self.telegraph_content[i])['path'])
 
@@ -516,23 +516,23 @@ class GoogleDriveHelper:
                 self.telegraph_content[i-1] += f'<b> | <a href="https://telegra.ph/{self.path[i]}">Next</a></b>'
                 try:
                     telegraph[(acc_no - 1) if i % page_per_acc == 0 else acc_no].edit_page(path = self.path[i-1],
-                                              title='SearchX',
-                                              author_name='Levi',
-                                              author_url='https://t.me/l3v11',
+                                              title='24/7 Search Bot',
+                                              author_name='24/7 Mirror',
+                                              author_url='https://t.me/mirror_247_chennel',
                                               html_content=self.telegraph_content[i-1])
                 except RetryAfterError as e:
                     LOGGER.info(f"Cooldown: {e.retry_after} seconds")
                     time.sleep(e.retry_after)
                     telegraph[(acc_no - 1) if i % page_per_acc == 0 else acc_no].edit_page(path = self.path[i-1],
-                                              title='SearchX',
-                                              author_name='Levi',
-                                              author_url='https://t.me/l3v11',
+                                              title='24/7 Search Bot',
+                                              author_name='24/7 Mirror',
+                                              author_url='https://t.me/mirror_247_chennel',
                                               html_content=self.telegraph_content[i-1])
 
         msg = f"<b>Found {response_count} results matching '{file_name}' in {len(DRIVE_ID)} Drives</b> " \
               f"<b>(Time taken {time_taken}s)</b>"
 
         buttons = button_builder.ButtonMaker()
-        buttons.build_button("VIEW RESULTS 🗂️", f"https://telegra.ph/{self.path[0]}")
+        buttons.build_button("View Results 📂", f"https://telegra.ph/{self.path[0]}")
 
         return msg, InlineKeyboardMarkup(buttons.build_menu(1))

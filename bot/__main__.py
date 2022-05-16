@@ -11,31 +11,31 @@ from bot.helper.telegram_helper.message_utils import *
 def start(update, context):
     if CustomFilters.authorized_user(update) or CustomFilters.authorized_chat(update):
         if update.message.chat.type == "private":
-            sendMessage("<b>Access granted</b>", context.bot, update)
+            sendMessage("<b> ❖  You're Authorised User </b>", context.bot, update)
         else:
-            sendMessage("<b>I'm alive :)</b>", context.bot, update)
+            sendMessage("<b>❖  Am Alive </b>", context.bot, update)
         LOGGER.info('Granted: {} [{}]'.format(update.message.from_user.first_name, update.message.from_user.id))
     else:
-        sendMessage("<b>Access denied</b>", context.bot, update)
+        sendMessage("<b>❖ Access Denied.\n❖  Join Us @mirror_247_chennel </b>", context.bot, update)
         LOGGER.info('Denied: {} [{}]'.format(update.message.from_user.first_name, update.message.from_user.id))
 
 def ping(update, context):
     start_time = int(round(time.time() * 1000))
-    reply = sendMessage("<b>Pong!</b>", context.bot, update)
+    reply = sendMessage("<b>❖ Ping</b>", context.bot, update)
     end_time = int(round(time.time() * 1000))
     editMessage(f'<code>{end_time - start_time}ms</code>', reply)
 
 def bot_help(update, context):
     help_string = f'''
-<u><i><b>Usage:</b></i></u>
+<u><i><b>❖ Usage:</b></i></u>
 
-For <i>folder</i> results only:
+For <i>❖ folder</i> results only:
 <code>/{BotCommands.ListCommand} -d &lt;query&gt;</code>
 
-For <i>file</i> results only:
+For <i>❖ file</i> results only:
 <code>/{BotCommands.ListCommand} -f &lt;query&gt;</code>
 
-<u><i><b>Commands:</b></i></u>
+<u><i><b>❖ Commands:</b></i></u>
 
 /{BotCommands.StartCommand}: Start the bot
 
@@ -81,7 +81,7 @@ def main():
     dispatcher.add_handler(help_handler)
     dispatcher.add_handler(log_handler)
     updater.start_polling()
-    LOGGER.info("Bot started")
+    LOGGER.info("❖ Am Alive. Join us @mirror_247_chennel")
     updater.idle()
 
 main()

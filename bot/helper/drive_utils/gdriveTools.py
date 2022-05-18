@@ -237,7 +237,7 @@ class GoogleDriveHelper:
                 msg += f'\n\n<a href="{self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(dir_id)}">Drive Link</a>'
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{meta.get("name")}/')
-                    msg += f' | <a href="{url}">Index Link</a>'
+                    msg += f' ❖ <a href="{url}">Index Link</a>'
             else:
                 file = self.copyFile(meta.get('id'), parent_id, status)
                 try:
@@ -253,7 +253,7 @@ class GoogleDriveHelper:
                     pass
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
-                    msg += f' | <a href="{url}">Index Link</a>'
+                    msg += f' ❖ <a href="{url}">Index Link</a>'
         except Exception as err:
             if isinstance(err, RetryError):
                 LOGGER.info(f"Total attempts: {err.last_attempt.attempt_number}")
@@ -460,7 +460,7 @@ class GoogleDriveHelper:
                         if INDEX_URL[index] is not None:
                             file_namee = requests.utils.quote(f"{file.get('name')}")
                             url = f"{INDEX_URL[index]}search?q={file_namee}"
-                            msg += f"<b> | <a href='{url}'>Index Link</a></b>"
+                            msg += f"<b> ❖ <a href='{url}'>Index Link</a></b>"
                     else:
                         msg += f"📄<code>{file.get('name')}</code> <b>({get_readable_file_size(int(file.get('size', 0)))})" \
                                f"</b><br><b><a href='https://drive.google.com/uc?id={file.get('id')}" \
@@ -468,7 +468,7 @@ class GoogleDriveHelper:
                         if INDEX_URL[index] is not None:
                             file_namee = requests.utils.quote(f"{file.get('name')}")
                             url = f"{INDEX_URL[index]}search?q={file_namee}"
-                            msg += f"<b> | <a href='{url}'>Index Link</a></b>"
+                            msg += f"<b> ❖ <a href='{url}'>Index Link</a></b>"
                     msg += '<br><br>'
                     content_count += 1
                     response_count += 1
@@ -482,7 +482,7 @@ class GoogleDriveHelper:
 
         total_pages = len(self.telegraph_content)
         if total_pages == 0:
-            return "<b>Found nothing :(</b>", None
+            return "<b>❖ Found nothing :(</b>", None
 
         acc_no = -1
         page_per_acc = 2
@@ -492,7 +492,7 @@ class GoogleDriveHelper:
 
             if i != 0:
                 # Add previous page link
-                self.telegraph_content[i] += f'<b><a href="https://telegra.ph/{self.path[i-1]}">Previous</a> | Page {i+1}/{total_pages}</b>'
+                self.telegraph_content[i] += f'<b><a href="https://telegra.ph/{self.path[i-1]}">Previous</a> ❖ Page {i+1}/{total_pages}</b>'
             else:
                 self.telegraph_content[i] += f'<b>Page {i+1}/{total_pages}</b>'
 
@@ -513,7 +513,7 @@ class GoogleDriveHelper:
 
             if i != 0:
                 # Edit previous page to add next page link
-                self.telegraph_content[i-1] += f'<b> | <a href="https://telegra.ph/{self.path[i]}">Next</a></b>'
+                self.telegraph_content[i-1] += f'<b> ❖ <a href="https://telegra.ph/{self.path[i]}">Next</a></b>'
                 try:
                     telegraph[(acc_no - 1) if i % page_per_acc == 0 else acc_no].edit_page(path = self.path[i-1],
                                               title='24/7 Search Bot',
@@ -529,10 +529,10 @@ class GoogleDriveHelper:
                                               author_url='https://t.me/mirror_247_chennel',
                                               html_content=self.telegraph_content[i-1])
 
-        msg = f"<b>Found {response_count} results matching '{file_name}' in {len(DRIVE_ID)} Drives</b> " \
-              f"<b>(Time taken {time_taken}s)</b>"
+        msg = f"<b>❖ Found {response_count} Results \n❖ Matched '{file_name}' \n❖In {len(DRIVE_ID)} Drives</b> " \
+              f"<b>❖ Time taken {time_taken}s</b>"
 
         buttons = button_builder.ButtonMaker()
-        buttons.build_button("View Results 📂", f"https://telegra.ph/{self.path[0]}")
+        buttons.build_button("View Result Files 📂", f"https://telegra.ph/{self.path[0]}")
 
         return msg, InlineKeyboardMarkup(buttons.build_menu(1))

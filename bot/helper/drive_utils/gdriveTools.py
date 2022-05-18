@@ -529,7 +529,7 @@ class GoogleDriveHelper:
                                               author_url='https://t.me/mirror_247_chennel',
                                               html_content=self.telegraph_content[i-1])
 
-        msg = f"<b>❖ Found {response_count} Results \n❖ Matched '{file_name}'\n❖ In {len(DRIVE_ID)} Drives</b> " \n
+        msg = f"<b>❖ Found {response_count} Results \n❖ Matched '{file_name}'\n❖ In {len(DRIVE_ID)} Drives</b> " \
               f"<b>\n❖ Time taken {time_taken}s</b>"
 
         buttons = button_builder.ButtonMaker()

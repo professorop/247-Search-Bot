@@ -530,7 +530,7 @@ class GoogleDriveHelper:
                                               html_content=self.telegraph_content[i-1])
 
         msg = f"<b>❖ Found {response_count} Results \n❖ Matched '{file_name}'\n❖ In {len(DRIVE_ID)} Drives</b> " \n
-              f"<b>❖ Time taken {time_taken}s</b>"
+              f"<b>\n❖ Time taken {time_taken}s</b>"
 
         buttons = button_builder.ButtonMaker()
         buttons.build_button("View Results 📂", f"https://telegra.ph/{self.path[0]}")

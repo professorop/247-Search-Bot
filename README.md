@@ -1,4 +1,4 @@
-# By [24/7 Mirror](https://t.me/mirror_247_chennel)
+# By [24/7 Mirror](https://t.me/mirror_247_chennel) ❖ 
 
 <p align="center">
     <a href="https://github.com/l3v11/SearchX">
